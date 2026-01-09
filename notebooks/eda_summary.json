@@ -1,0 +1,1735 @@
+{
+  "dataset_summary": {
+    "rows": 1100000,
+    "cols": 33,
+    "memory_bytes": 882502127,
+    "sampled_for_heavy_ops": true,
+    "sample_rows_used": 50000
+  },
+  "schema": {
+    "dtypes": {
+      "date": "object",
+      "year": "int64",
+      "month": "int64",
+      "day": "int64",
+      "weekofyear": "int64",
+      "weekday": "int64",
+      "is_weekend": "int64",
+      "is_holiday": "int64",
+      "temperature": "float64",
+      "rain_mm": "float64",
+      "store_id": "object",
+      "country": "object",
+      "city": "object",
+      "channel": "object",
+      "latitude": "float64",
+      "longitude": "float64",
+      "sku_id": "object",
+      "sku_name": "object",
+      "category": "object",
+      "subcategory": "object",
+      "brand": "object",
+      "units_sold": "int64",
+      "list_price": "float64",
+      "discount_pct": "float64",
+      "promo_flag": "int64",
+      "gross_sales": "float64",
+      "net_sales": "float64",
+      "stock_on_hand": "int64",
+      "stock_out_flag": "int64",
+      "lead_time_days": "int64",
+      "supplier_id": "object",
+      "purchase_cost": "float64",
+      "margin_pct": "float64"
+    },
+    "target_col": null
+  },
+  "quality": {
+    "duplicate_rows": 0,
+    "missing_total_cells": 0,
+    "missing_fraction_overall": 0.0
+  },
+  "columns": [
+    {
+      "name": "date",
+      "dtype": "object",
+      "semantic_type": "datetime_candidate",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 1095,
+      "unique_fraction_of_non_null": 0.0009954545454545455,
+      "parse_hints": {
+        "datetime_like": true,
+        "datetime_parse_success_rate": 1.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "2022-08-26",
+          "count": 67
+        },
+        {
+          "value": "2023-03-16",
+          "count": 66
+        },
+        {
+          "value": "2022-11-13",
+          "count": 65
+        },
+        {
+          "value": "2021-04-07",
+          "count": 65
+        },
+        {
+          "value": "2023-12-30",
+          "count": 63
+        },
+        {
+          "value": "2021-07-21",
+          "count": 63
+        },
+        {
+          "value": "2021-12-18",
+          "count": 63
+        },
+        {
+          "value": "2021-07-15",
+          "count": 62
+        },
+        {
+          "value": "2021-09-08",
+          "count": 62
+        },
+        {
+          "value": "2023-02-04",
+          "count": 62
+        },
+        {
+          "value": "2023-05-17",
+          "count": 61
+        },
+        {
+          "value": "2021-01-05",
+          "count": 61
+        },
+        {
+          "value": "2022-10-08",
+          "count": 61
+        },
+        {
+          "value": "2022-01-12",
+          "count": 61
+        },
+        {
+          "value": "2021-11-01",
+          "count": 61
+        },
+        {
+          "value": "2021-02-27",
+          "count": 61
+        },
+        {
+          "value": "2022-01-28",
+          "count": 61
+        },
+        {
+          "value": "2023-06-01",
+          "count": 61
+        },
+        {
+          "value": "2023-02-21",
+          "count": 61
+        },
+        {
+          "value": "2022-09-02",
+          "count": 61
+        }
+      ],
+      "text_hints": {
+        "avg_length": 10.0,
+        "p95_length": 10.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "year",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 3,
+      "unique_fraction_of_non_null": 2.7272727272727272e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 2021,
+        "max": 2023,
+        "mean": 2021.9996681818182,
+        "std": 0.8164699769070101,
+        "median": 2022.0,
+        "skew": 0.0006095696810338425
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 2021.0,
+        "q3": 2023.0,
+        "iqr": 2.0,
+        "lower_bound": 2018.0,
+        "upper_bound": 2026.0,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "month",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 12,
+      "unique_fraction_of_non_null": 1.0909090909090909e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1,
+        "max": 12,
+        "mean": 6.525612727272727,
+        "std": 3.44775978308832,
+        "median": 7.0,
+        "skew": -0.010304751838453747
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 4.0,
+        "q3": 10.0,
+        "iqr": 6.0,
+        "lower_bound": -5.0,
+        "upper_bound": 19.0,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "day",
+      "dtype": "int64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 31,
+      "unique_fraction_of_non_null": 2.818181818181818e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1,
+        "max": 31,
+        "mean": 15.720443636363637,
+        "std": 8.79626193529385,
+        "median": 16.0,
+        "skew": 0.007538027361235278
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 8.0,
+        "q3": 23.0,
+        "iqr": 15.0,
+        "lower_bound": -14.5,
+        "upper_bound": 45.5,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "weekofyear",
+      "dtype": "int64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 53,
+      "unique_fraction_of_non_null": 4.818181818181818e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1,
+        "max": 53,
+        "mean": 26.57081090909091,
+        "std": 15.051255185862612,
+        "median": 27.0,
+        "skew": 0.0006372458912123903
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 14.0,
+        "q3": 40.0,
+        "iqr": 26.0,
+        "lower_bound": -25.0,
+        "upper_bound": 79.0,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "weekday",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 7,
+      "unique_fraction_of_non_null": 6.363636363636363e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 6,
+        "mean": 3.0054790909090907,
+        "std": 2.0004513080176607,
+        "median": 3.0,
+        "skew": -0.004111290954051308
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 1.0,
+        "q3": 5.0,
+        "iqr": 4.0,
+        "lower_bound": -5.0,
+        "upper_bound": 11.0,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "is_weekend",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 2,
+      "unique_fraction_of_non_null": 1.818181818181818e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 1,
+        "mean": 0.2867581818181818,
+        "std": 0.45224784456441636,
+        "median": 0.0,
+        "skew": 0.943032491842187
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 0.0,
+        "q3": 1.0,
+        "iqr": 1.0,
+        "lower_bound": -1.5,
+        "upper_bound": 2.5,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "is_holiday",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 2,
+      "unique_fraction_of_non_null": 1.818181818181818e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 1,
+        "mean": 0.013698181818181818,
+        "std": 0.11623490833385464,
+        "median": 0.0,
+        "skew": 8.367584391631665
+      },
+      "outliers": {
+        "method": "iqr",
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "temperature",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 710,
+      "unique_fraction_of_non_null": 0.0006454545454545454,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1.8,
+        "max": 22.83,
+        "mean": 12.815005409090908,
+        "std": 3.37158682621343,
+        "median": 12.84,
+        "skew": -0.060420162505650556
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 10.61,
+        "q3": 15.0,
+        "iqr": 4.390000000000001,
+        "lower_bound": 4.024999999999999,
+        "upper_bound": 21.585,
+        "outlier_count": 8038,
+        "outlier_fraction": 0.007307272727272727
+      }
+    },
+    {
+      "name": "rain_mm",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 559,
+      "unique_fraction_of_non_null": 0.0005081818181818182,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0.0,
+        "max": 11.58,
+        "mean": 2.904106354545455,
+        "std": 2.0989968415943414,
+        "median": 2.57,
+        "skew": 0.9161805167272921
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 1.22,
+        "q3": 4.15,
+        "iqr": 2.9300000000000006,
+        "lower_bound": -3.1750000000000016,
+        "upper_bound": 8.545000000000002,
+        "outlier_count": 13059,
+        "outlier_fraction": 0.011871818181818181
+      }
+    },
+    {
+      "name": "store_id",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 13,
+      "unique_fraction_of_non_null": 1.1818181818181819e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "STORE0008",
+          "count": 4080
+        },
+        {
+          "value": "STORE0007",
+          "count": 4062
+        },
+        {
+          "value": "STORE0012",
+          "count": 4023
+        },
+        {
+          "value": "STORE0005",
+          "count": 4007
+        },
+        {
+          "value": "STORE0011",
+          "count": 3999
+        },
+        {
+          "value": "STORE0009",
+          "count": 3993
+        },
+        {
+          "value": "STORE0004",
+          "count": 3966
+        },
+        {
+          "value": "STORE0003",
+          "count": 3961
+        },
+        {
+          "value": "STORE0001",
+          "count": 3961
+        },
+        {
+          "value": "STORE0002",
+          "count": 3957
+        },
+        {
+          "value": "STORE0006",
+          "count": 3917
+        },
+        {
+          "value": "STORE0010",
+          "count": 3872
+        },
+        {
+          "value": "STORE0013",
+          "count": 2202
+        }
+      ],
+      "text_hints": {
+        "avg_length": 9.0,
+        "p95_length": 9.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "country",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 7,
+      "unique_fraction_of_non_null": 6.363636363636363e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "Italy",
+          "count": 15789
+        },
+        {
+          "value": "Spain",
+          "count": 12078
+        },
+        {
+          "value": "Germany",
+          "count": 7927
+        },
+        {
+          "value": "Austria",
+          "count": 4080
+        },
+        {
+          "value": "Poland",
+          "count": 4007
+        },
+        {
+          "value": "France",
+          "count": 3917
+        },
+        {
+          "value": "Netherlands",
+          "count": 2202
+        }
+      ],
+      "text_hints": {
+        "avg_length": 5.903272727272728,
+        "p95_length": 7.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "city",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 9,
+      "unique_fraction_of_non_null": 8.181818181818181e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "Barcelona",
+          "count": 8055
+        },
+        {
+          "value": "Rome",
+          "count": 7956
+        },
+        {
+          "value": "Berlin",
+          "count": 7927
+        },
+        {
+          "value": "Milan",
+          "count": 7833
+        },
+        {
+          "value": "Vienna",
+          "count": 4080
+        },
+        {
+          "value": "Madrid",
+          "count": 4023
+        },
+        {
+          "value": "Warsaw",
+          "count": 4007
+        },
+        {
+          "value": "Paris",
+          "count": 3917
+        },
+        {
+          "value": "Amsterdam",
+          "count": 2202
+        }
+      ],
+      "text_hints": {
+        "avg_length": 6.053454545454546,
+        "p95_length": 9.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "channel",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 4,
+      "unique_fraction_of_non_null": 3.636363636363636e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "Hypermarket",
+          "count": 23930
+        },
+        {
+          "value": "Supermarket",
+          "count": 11980
+        },
+        {
+          "value": "E-commerce",
+          "count": 11888
+        },
+        {
+          "value": "Convenience",
+          "count": 2202
+        }
+      ],
+      "text_hints": {
+        "avg_length": 10.761090909090909,
+        "p95_length": 11.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "latitude",
+      "dtype": "float64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 13,
+      "unique_fraction_of_non_null": 1.1818181818181819e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 40.41706,
+        "max": 52.52586,
+        "mean": 46.30581084727273,
+        "std": 4.602926857896202,
+        "median": 45.46266,
+        "skew": 0.1830539218758863
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 41.90833,
+        "q3": 52.25287,
+        "iqr": 10.344540000000002,
+        "lower_bound": 26.391519999999996,
+        "upper_bound": 67.76968000000001,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "longitude",
+      "dtype": "float64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 13,
+      "unique_fraction_of_non_null": 1.1818181818181819e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": -3.67473,
+        "max": 20.99579,
+        "mean": 9.030855967272728,
+        "std": 6.727444082054485,
+        "median": 9.20313,
+        "skew": -0.17507884415031386
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 2.36046,
+        "q3": 13.39071,
+        "iqr": 11.03025,
+        "lower_bound": -14.184915,
+        "upper_bound": 29.936085,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "sku_id",
+      "dtype": "object",
+      "semantic_type": "text",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 102,
+      "unique_fraction_of_non_null": 9.272727272727273e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "SKU0096",
+          "count": 684
+        },
+        {
+          "value": "SKU0056",
+          "count": 640
+        },
+        {
+          "value": "SKU0028",
+          "count": 626
+        },
+        {
+          "value": "SKU0020",
+          "count": 608
+        },
+        {
+          "value": "SKU0006",
+          "count": 598
+        },
+        {
+          "value": "SKU0097",
+          "count": 594
+        },
+        {
+          "value": "SKU0001",
+          "count": 592
+        },
+        {
+          "value": "SKU0039",
+          "count": 591
+        },
+        {
+          "value": "SKU0065",
+          "count": 587
+        },
+        {
+          "value": "SKU0086",
+          "count": 584
+        },
+        {
+          "value": "SKU0055",
+          "count": 580
+        },
+        {
+          "value": "SKU0087",
+          "count": 579
+        },
+        {
+          "value": "SKU0046",
+          "count": 576
+        },
+        {
+          "value": "SKU0018",
+          "count": 573
+        },
+        {
+          "value": "SKU0038",
+          "count": 572
+        },
+        {
+          "value": "SKU0015",
+          "count": 568
+        },
+        {
+          "value": "SKU0035",
+          "count": 566
+        },
+        {
+          "value": "SKU0025",
+          "count": 566
+        },
+        {
+          "value": "SKU0101",
+          "count": 563
+        },
+        {
+          "value": "SKU0076",
+          "count": 559
+        }
+      ],
+      "text_hints": {
+        "avg_length": 7.0,
+        "p95_length": 7.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "sku_name",
+      "dtype": "object",
+      "semantic_type": "text",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 102,
+      "unique_fraction_of_non_null": 9.272727272727273e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "BrandF Soap",
+          "count": 684
+        },
+        {
+          "value": "BrandB Milk",
+          "count": 640
+        },
+        {
+          "value": "BrandD Chips",
+          "count": 626
+        },
+        {
+          "value": "BrandB Energy drink",
+          "count": 608
+        },
+        {
+          "value": "BrandF Soda",
+          "count": 598
+        },
+        {
+          "value": "BrandA Toothpaste",
+          "count": 594
+        },
+        {
+          "value": "BrandA Soda",
+          "count": 592
+        },
+        {
+          "value": "BrandC Biscuits",
+          "count": 591
+        },
+        {
+          "value": "BrandE Cheese",
+          "count": 587
+        },
+        {
+          "value": "BrandB Shampoo",
+          "count": 584
+        },
+        {
+          "value": "BrandA Milk",
+          "count": 580
+        },
+        {
+          "value": "BrandC Shampoo",
+          "count": 579
+        },
+        {
+          "value": "BrandD Nuts",
+          "count": 576
+        },
+        {
+          "value": "BrandF Water",
+          "count": 573
+        },
+        {
+          "value": "BrandB Biscuits",
+          "count": 572
+        },
+        {
+          "value": "BrandC Water",
+          "count": 568
+        },
+        {
+          "value": "BrandE Chocolate",
+          "count": 566
+        },
+        {
+          "value": "BrandA Chips",
+          "count": 566
+        },
+        {
+          "value": "BrandE Toothpaste",
+          "count": 563
+        },
+        {
+          "value": "BrandD Softener",
+          "count": 559
+        }
+      ],
+      "text_hints": {
+        "avg_length": 13.629259090909091,
+        "p95_length": 19.0,
+        "has_whitespace": true
+      }
+    },
+    {
+      "name": "category",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 5,
+      "unique_fraction_of_non_null": 4.5454545454545455e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "Beverages",
+          "count": 12026
+        },
+        {
+          "value": "Snacks",
+          "count": 11994
+        },
+        {
+          "value": "Personal Care",
+          "count": 9211
+        },
+        {
+          "value": "Dairy",
+          "count": 8892
+        },
+        {
+          "value": "Home Care",
+          "count": 7877
+        }
+      ],
+      "text_hints": {
+        "avg_length": 8.298204545454546,
+        "p95_length": 13.0,
+        "has_whitespace": true
+      }
+    },
+    {
+      "name": "subcategory",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 17,
+      "unique_fraction_of_non_null": 1.5454545454545454e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "Soda",
+          "count": 3260
+        },
+        {
+          "value": "Shampoo",
+          "count": 3237
+        },
+        {
+          "value": "Toothpaste",
+          "count": 3223
+        },
+        {
+          "value": "Cheese",
+          "count": 3147
+        },
+        {
+          "value": "Chips",
+          "count": 3122
+        },
+        {
+          "value": "Milk",
+          "count": 3081
+        },
+        {
+          "value": "Biscuits",
+          "count": 3036
+        },
+        {
+          "value": "Juice",
+          "count": 3019
+        },
+        {
+          "value": "Water",
+          "count": 3010
+        },
+        {
+          "value": "Chocolate",
+          "count": 2975
+        },
+        {
+          "value": "Softener",
+          "count": 2875
+        },
+        {
+          "value": "Nuts",
+          "count": 2861
+        },
+        {
+          "value": "Soap",
+          "count": 2751
+        },
+        {
+          "value": "Energy drink",
+          "count": 2737
+        },
+        {
+          "value": "Yogurt",
+          "count": 2664
+        },
+        {
+          "value": "Detergent",
+          "count": 2607
+        },
+        {
+          "value": "Cleaner",
+          "count": 2395
+        }
+      ],
+      "text_hints": {
+        "avg_length": 6.629259090909091,
+        "p95_length": 12.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "brand",
+      "dtype": "object",
+      "semantic_type": "categorical",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 6,
+      "unique_fraction_of_non_null": 5.4545454545454545e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "BrandB",
+          "count": 8670
+        },
+        {
+          "value": "BrandD",
+          "count": 8483
+        },
+        {
+          "value": "BrandF",
+          "count": 8460
+        },
+        {
+          "value": "BrandA",
+          "count": 8254
+        },
+        {
+          "value": "BrandC",
+          "count": 8146
+        },
+        {
+          "value": "BrandE",
+          "count": 7987
+        }
+      ],
+      "text_hints": {
+        "avg_length": 6.0,
+        "p95_length": 6.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "units_sold",
+      "dtype": "int64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 516,
+      "unique_fraction_of_non_null": 0.0004690909090909091,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 704,
+        "mean": 59.19634727272727,
+        "std": 45.00721681699208,
+        "median": 49.0,
+        "skew": 1.6714467688059014
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 25.0,
+        "q3": 82.0,
+        "iqr": 57.0,
+        "lower_bound": -60.5,
+        "upper_bound": 167.5,
+        "outlier_count": 28275,
+        "outlier_fraction": 0.025704545454545456
+      }
+    },
+    {
+      "name": "list_price",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 99,
+      "unique_fraction_of_non_null": 9e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1.08,
+        "max": 14.8,
+        "mean": 7.71210031818182,
+        "std": 4.253022866068684,
+        "median": 7.38,
+        "skew": 0.05788872104579676
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 4.2,
+        "q3": 11.65,
+        "iqr": 7.45,
+        "lower_bound": -6.9750000000000005,
+        "upper_bound": 22.825000000000003,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "discount_pct",
+      "dtype": "float64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 5,
+      "unique_fraction_of_non_null": 4.5454545454545455e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0.0,
+        "max": 0.3,
+        "mean": 0.014962409090909092,
+        "std": 0.054779553637660086,
+        "median": 0.0,
+        "skew": 3.8928656091101415
+      },
+      "outliers": {
+        "method": "iqr",
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "promo_flag",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 2,
+      "unique_fraction_of_non_null": 1.818181818181818e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 1,
+        "mean": 0.08023363636363637,
+        "std": 0.2716546834623317,
+        "median": 0.0,
+        "skew": 3.090446455766903
+      },
+      "outliers": {
+        "method": "iqr",
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "gross_sales",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 15354,
+      "unique_fraction_of_non_null": 0.013958181818181817,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0.0,
+        "max": 6593.9,
+        "mean": 440.68061274545454,
+        "std": 441.80050740245605,
+        "median": 282.88,
+        "skew": 2.0096014319009345
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 132.44,
+        "q3": 605.28,
+        "iqr": 472.84,
+        "lower_bound": -576.8199999999999,
+        "upper_bound": 1314.54,
+        "outlier_count": 59417,
+        "outlier_fraction": 0.05401545454545455
+      }
+    },
+    {
+      "name": "net_sales",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 29938,
+      "unique_fraction_of_non_null": 0.027216363636363636,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0.0,
+        "max": 5144.94,
+        "mean": 429.95132075454546,
+        "std": 422.49920036383304,
+        "median": 277.86,
+        "skew": 1.8199170295373521
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 130.76749999999998,
+        "q3": 593.46,
+        "iqr": 462.69250000000005,
+        "lower_bound": -563.27125,
+        "upper_bound": 1287.4987500000002,
+        "outlier_count": 58194,
+        "outlier_fraction": 0.05290363636363636
+      }
+    },
+    {
+      "name": "stock_on_hand",
+      "dtype": "int64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 640,
+      "unique_fraction_of_non_null": 0.0005818181818181818,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 698,
+        "mean": 299.47566454545455,
+        "std": 80.07292285636315,
+        "median": 300.0,
+        "skew": -0.0008929931145646181
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 245.0,
+        "q3": 354.0,
+        "iqr": 109.0,
+        "lower_bound": 81.5,
+        "upper_bound": 517.5,
+        "outlier_count": 7056,
+        "outlier_fraction": 0.006414545454545455
+      }
+    },
+    {
+      "name": "stock_out_flag",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 2,
+      "unique_fraction_of_non_null": 1.818181818181818e-06,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0,
+        "max": 1,
+        "mean": 0.030103636363636364,
+        "std": 0.17087256650628305,
+        "median": 0.0,
+        "skew": 5.499972612369739
+      },
+      "outliers": {
+        "method": "iqr",
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "lead_time_days",
+      "dtype": "int64",
+      "semantic_type": "numeric_low_cardinality",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 17,
+      "unique_fraction_of_non_null": 1.5454545454545454e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 1,
+        "max": 17,
+        "mean": 6.500403636363636,
+        "std": 2.0140646096979893,
+        "median": 6.0,
+        "skew": 0.01600754580311174
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 5.0,
+        "q3": 8.0,
+        "iqr": 3.0,
+        "lower_bound": 0.5,
+        "upper_bound": 12.5,
+        "outlier_count": 1396,
+        "outlier_fraction": 0.0012690909090909092
+      }
+    },
+    {
+      "name": "supplier_id",
+      "dtype": "object",
+      "semantic_type": "text",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 60,
+      "unique_fraction_of_non_null": 5.4545454545454546e-05,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "top_values": [
+        {
+          "value": "S057",
+          "count": 928
+        },
+        {
+          "value": "S036",
+          "count": 890
+        },
+        {
+          "value": "S042",
+          "count": 890
+        },
+        {
+          "value": "S029",
+          "count": 888
+        },
+        {
+          "value": "S005",
+          "count": 875
+        },
+        {
+          "value": "S008",
+          "count": 875
+        },
+        {
+          "value": "S012",
+          "count": 866
+        },
+        {
+          "value": "S034",
+          "count": 866
+        },
+        {
+          "value": "S037",
+          "count": 860
+        },
+        {
+          "value": "S041",
+          "count": 858
+        },
+        {
+          "value": "S021",
+          "count": 857
+        },
+        {
+          "value": "S025",
+          "count": 856
+        },
+        {
+          "value": "S017",
+          "count": 855
+        },
+        {
+          "value": "S018",
+          "count": 854
+        },
+        {
+          "value": "S033",
+          "count": 854
+        },
+        {
+          "value": "S030",
+          "count": 851
+        },
+        {
+          "value": "S020",
+          "count": 850
+        },
+        {
+          "value": "S014",
+          "count": 847
+        },
+        {
+          "value": "S009",
+          "count": 847
+        },
+        {
+          "value": "S006",
+          "count": 847
+        }
+      ],
+      "text_hints": {
+        "avg_length": 4.0,
+        "p95_length": 4.0,
+        "has_whitespace": false
+      }
+    },
+    {
+      "name": "purchase_cost",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 1062,
+      "unique_fraction_of_non_null": 0.0009654545454545455,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": 0.49,
+        "max": 11.1,
+        "mean": 4.625546054545454,
+        "std": 2.662604387210011,
+        "median": 4.35,
+        "skew": 0.25392753703113413
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 2.4,
+        "q3": 6.77,
+        "iqr": 4.369999999999999,
+        "lower_bound": -4.154999999999999,
+        "upper_bound": 13.325,
+        "outlier_count": 0,
+        "outlier_fraction": 0.0
+      }
+    },
+    {
+      "name": "margin_pct",
+      "dtype": "float64",
+      "semantic_type": "numeric",
+      "non_null": 1100000,
+      "nulls": 0,
+      "null_fraction": 0.0,
+      "nunique": 601,
+      "unique_fraction_of_non_null": 0.0005463636363636364,
+      "parse_hints": {
+        "datetime_like": false,
+        "datetime_parse_success_rate": 0.0,
+        "numeric_like": false,
+        "numeric_parse_success_rate": 0.0
+      },
+      "stats": {
+        "min": -0.05,
+        "max": 0.55,
+        "mean": 0.3852404654545455,
+        "std": 0.10245805942679727,
+        "median": 0.389,
+        "skew": -0.5993656113207101
+      },
+      "outliers": {
+        "method": "iqr",
+        "q1": 0.312,
+        "q3": 0.469,
+        "iqr": 0.15699999999999997,
+        "lower_bound": 0.07650000000000004,
+        "upper_bound": 0.7044999999999999,
+        "outlier_count": 11125,
+        "outlier_fraction": 0.010113636363636363
+      }
+    }
+  ],
+  "correlations": {
+    "included": true,
+    "method": "pearson",
+    "numeric_feature_count_used": 22,
+    "top_abs_pairs": [
+      {
+        "col_a": "gross_sales",
+        "col_b": "net_sales",
+        "abs_corr": 0.992293520569537
+      },
+      {
+        "col_a": "month",
+        "col_b": "weekofyear",
+        "abs_corr": 0.9655718291810155
+      },
+      {
+        "col_a": "purchase_cost",
+        "col_b": "list_price",
+        "abs_corr": 0.9583846064624961
+      },
+      {
+        "col_a": "promo_flag",
+        "col_b": "discount_pct",
+        "abs_corr": 0.9247462704158514
+      },
+      {
+        "col_a": "weekday",
+        "col_b": "is_weekend",
+        "abs_corr": 0.7905590922958935
+      },
+      {
+        "col_a": "units_sold",
+        "col_b": "gross_sales",
+        "abs_corr": 0.6529345044449054
+      },
+      {
+        "col_a": "units_sold",
+        "col_b": "net_sales",
+        "abs_corr": 0.6296957518716989
+      },
+      {
+        "col_a": "net_sales",
+        "col_b": "list_price",
+        "abs_corr": 0.5837311138722155
+      },
+      {
+        "col_a": "latitude",
+        "col_b": "longitude",
+        "abs_corr": 0.5694454351038949
+      },
+      {
+        "col_a": "list_price",
+        "col_b": "gross_sales",
+        "abs_corr": 0.5661159030528037
+      },
+      {
+        "col_a": "purchase_cost",
+        "col_b": "net_sales",
+        "abs_corr": 0.5593937122543389
+      },
+      {
+        "col_a": "gross_sales",
+        "col_b": "purchase_cost",
+        "abs_corr": 0.5423251166085421
+      },
+      {
+        "col_a": "margin_pct",
+        "col_b": "discount_pct",
+        "abs_corr": 0.534238379255893
+      },
+      {
+        "col_a": "promo_flag",
+        "col_b": "margin_pct",
+        "abs_corr": 0.4945872196153993
+      },
+      {
+        "col_a": "day",
+        "col_b": "temperature",
+        "abs_corr": 0.4580650223943724
+      },
+      {
+        "col_a": "promo_flag",
+        "col_b": "units_sold",
+        "abs_corr": 0.2883173554965041
+      },
+      {
+        "col_a": "units_sold",
+        "col_b": "discount_pct",
+        "abs_corr": 0.2824861659505661
+      },
+      {
+        "col_a": "margin_pct",
+        "col_b": "purchase_cost",
+        "abs_corr": 0.19007418034613388
+      },
+      {
+        "col_a": "stock_out_flag",
+        "col_b": "units_sold",
+        "abs_corr": 0.18963219065685397
+      },
+      {
+        "col_a": "discount_pct",
+        "col_b": "gross_sales",
+        "abs_corr": 0.16287273423404516
+      },
+      {
+        "col_a": "gross_sales",
+        "col_b": "promo_flag",
+        "abs_corr": 0.16062097393871003
+      },
+      {
+        "col_a": "units_sold",
+        "col_b": "margin_pct",
+        "abs_corr": 0.15485897826602302
+      },
+      {
+        "col_a": "stock_out_flag",
+        "col_b": "net_sales",
+        "abs_corr": 0.14686746672907985
+      },
+      {
+        "col_a": "gross_sales",
+        "col_b": "stock_out_flag",
+        "abs_corr": 0.14392403134182857
+      },
+      {
+        "col_a": "units_sold",
+        "col_b": "is_weekend",
+        "abs_corr": 0.11747054078575862
+      }
+    ]
+  },
+  "target_summary": {
+    "included": false
+  },
+  "recommendations": []
+}
