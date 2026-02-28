@@ -1,6 +1,8 @@
+"""LLM service — single source of truth for model initialisation."""
+
 from dotenv import load_dotenv
 import os
-from typing import Iterable, Optional
+from typing import Iterable
 
 from langchain.chat_models import init_chat_model
 from langchain_core.tools import BaseTool
@@ -44,7 +46,7 @@ def get_chat_model(temperature: float = 0.0):
 
 
 def bind_tools_to_model(
-    tools: Optional[Iterable[BaseTool]] = None,
+    tools: Iterable[BaseTool] | None = None,
     *,
     temperature: float = 0.0,
 ):

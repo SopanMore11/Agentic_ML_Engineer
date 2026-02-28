@@ -1,34 +1,8 @@
+"""LangChain tools for loading and profiling CSV datasets."""
+
 from langchain.tools import tool
 import pandas as pd
-import numpy as np
 from src.tools.utils import dataset_profile_logic
-
-@tool
-def load_dataset(file_path):
-    """
-    Load a CSV dataset from disk into a pandas DataFrame.
-
-    Parameters
-    ----------
-    file_path : str or os.PathLike
-        Path to the CSV file to read.
-
-    Returns
-    -------
-    pandas.DataFrame
-        The loaded DataFrame with columns inferred from the CSV.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the provided file path does not exist.
-    pd.errors.EmptyDataError
-        If the CSV file is empty.
-    pd.errors.ParserError
-        If the CSV cannot be parsed.
-    """
-    df = pd.read_csv(file_path)
-    return df
 
 
 @tool

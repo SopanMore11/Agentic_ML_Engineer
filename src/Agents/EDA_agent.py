@@ -1,114 +1,219 @@
-from typing import Dict, Any, List
-from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_core.language_models import BaseChatModel
-from src.tools.file_tools import load_dataset, dataset_profile_tool
+"""
+EDA Agent — A ReAct-style agent that performs Exploratory Data Analysis.
 
-class EDAAgent:
-    """Agent responsible for Exploratory Data Analysis"""
-    
-    def __init__(self, llm: BaseChatModel):
-        self.llm = llm
-        self.tools = [dataset_profile_tool]
-        self.tools_by_name = {tool.name: tool for tool in self.tools}
-        self.model_with_tools = llm.bind_tools(self.tools)
-        
-    def get_profile_prompt(self, file_path: str) -> str:
-        """Generate system prompt for EDA agent"""
-        return f"""You are an expert Data Analyst specializing in Exploratory Data Analysis (EDA).
+It reasons step-by-step, uses tools to inspect the data, and produces
+a comprehensive EDA report with statistical summaries and visualization
+recommendations.
 
-            Your task is to analyze the dataset at: {file_path}
+Flow:
+    [reason] ──▶ has tool calls? ──▶ [act] ──▶ loop back to [reason]
+        │                                        
+        └── no tool calls ──▶ [finish] ──▶ END
+"""
 
-            Your responsibilities:
-            1. DATASET_SNAPSHOT
-                - **Dimensions**: [Rows x Columns]
-                - **Target_Variable**: [Name | Type | Logic for choosing it as target]
-                - **Target_Distribution**: [Value counts or mean/range summary]
-            2. FEATURE_REGISTRY
-                | Column Name | Logical Type | Data Stats (Null% / Uniques) | Technical Directive |
-                | :--- | :--- | :--- | :--- |
-                | [Name] | [Numeric/Categorical/ID] | [e.g., 0% Null / 5 Unique] | [e.g., "One-Hot Encode", "MinMax Scale", "Drop"] |
-            3. DATA_QUALITY_ALERTS
-                - **Critical Issues**: [List any blockers like high nullity, zero variance, or extreme class imbalance]
-                - **Preprocessing Requirements**: [Explicit steps for the next agent to follow]
-            4. AGENT_INSTRUCTIONS (TECHNICAL CONTRACT)
-                - **Recommended_Encoding**: [Detailed instruction for handling categories]
-                - **Recommended_Scaling**: [Which features need normalization and why]
-                - **Modeling_Approach**: [Suggested algorithms (e.g., Tree-based, Linear) based on the data structure]
-            5. Provide actionable insights
+from langgraph.graph import StateGraph, END
+from langchain_core.messages import (
+    SystemMessage,
+    HumanMessage,
+    ToolMessage,
+    AIMessage,
+    AnyMessage,
+)
+from typing import TypedDict, Annotated
+import json
 
-            Available tools:
-            - dataset_profile_tool: Get detailed statistical profile of the dataset
+from langgraph.graph.message import add_messages
+from src.services.llm_service import get_chat_model, bind_tools_to_model
+from src.tools.file_tools import dataset_profile_tool
 
-            Always use tools to gather data before making conclusions.
-            Provide clear, structured summaries that are easy to understand.
-        """
 
-    def get_designer_prompt(self, strategy: str, profile: str) -> str:
-        """Generic prompt to convert strategy into a PlotPlan JSON"""
-        return f"""You are a Visualization Expert. Create a PlotPlan JSON.
-        
-            STRATEGY: {strategy}
-            DATASET PROFILE: {profile}
+# ─────────────────────────── State ───────────────────────────
+class EDAAgentState(TypedDict):
+    """State schema carried across every node of the EDA agent."""
 
-            GENERIC MAPPING RULES:
-            - CATEGORICAL vs TARGET: Use 'box' or 'violin'.
-            - NUMERIC vs TARGET: Use 'scatter' (set sample_rows if N > 50,000).
-            - TEMPORAL: Use 'time_series' with 'date_freq=W' or 'M'.
-            - CLASS IMBALANCE: Use 'stacked_bar' with 'normalize=percent'.
+    messages: Annotated[list[AnyMessage], add_messages]  # outer conversation
+    file_path: str
+    task: str                 # what the user wants analysed
+    react_messages: list      # internal reasoning chain
+    react_iterations: int
+    llm_calls: int
+    eda_report: str           # final structured report
 
-            Return ONLY raw JSON following the PlotPlan schema.
-        """
 
-    def execute_designer(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Specific logic to convert Strategy + Profile into PlotPlan JSON"""
-        strategy = state.get("strategy", "")
-        profile = state.get("dataset_profile", "")
-        
-        # Generic Designer Prompt: Focuses on mapping rules, not domain logic
-        designer_prompt = f"""You are a Visualization Expert.
-        Convert the following Strategy into a PlotPlan JSON.
-        
-        STRATEGY: {strategy}
-        PROFILE: {profile}
+# ─────────────────────────── Config ──────────────────────────
+MAX_ITERATIONS = 12
 
-        MAPPING RULES:
-        - If relationship is Numeric vs Numeric -> scatter.
-        - If relationship is Categorical vs Numeric -> box/violin.
-        - If time is involved -> time_series (freq=W/M).
-        """
-        
-        response = self.llm.invoke([SystemMessage(content=designer_prompt)])
-        # In a real scenario, you'd parse JSON and validate with Pydantic here
-        return {"plot_plan": response.content, "llm_calls": state.get("llm_calls", 0) + 1}
+EDA_TOOLS = [dataset_profile_tool]
+EDA_TOOLS_BY_NAME = {t.name: t for t in EDA_TOOLS}
 
-    def execute_profiler(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute EDA agent logic"""
-        
-        # Create system message with context
-        system_msg = SystemMessage(content=self.get_profile_prompt(state['file_path']))
-        
-        # Invoke LLM with tools
-        response = self.model_with_tools.invoke([system_msg] + state["messages"])
-        
-        return {
-            "messages": [response],  # Add AI message to conversation so tool_calls are visible
-            "llm_calls": state.get('llm_calls', 0) + 1
-        }
-    
+llm = get_chat_model()
+llm_with_tools = bind_tools_to_model(EDA_TOOLS)
 
-    
-    def _format_observation(self, observation: Any) -> str:
-        """Format tool observation for LLM consumption"""
-        import json
-        
-        if hasattr(observation, 'to_string'):  # DataFrame
-            return f"Dataset loaded. Shape: {observation.shape}. Use profiling tools for details."
-        elif isinstance(observation, dict):
-            return json.dumps(observation, indent=2)
+SYSTEM_PROMPT = """\
+You are a ReAct EDA Agent — an expert Data Analyst who performs
+Exploratory Data Analysis by thinking step-by-step.
+
+## Your Loop
+1. **Thought** — Reason about what you know so far and what you still need.
+2. **Action** — Call a tool to gather concrete data (never guess).
+3. **Observation** — Read the tool result and update your understanding.
+4. **Repeat** until you have enough evidence.
+5. **Final Answer** — Write a comprehensive EDA report (see template below).
+
+## EDA Report Template (use this for your final answer)
+
+### 1. Dataset Overview
+- Dimensions (rows × columns)
+- Memory usage
+- Column types breakdown
+
+### 2. Statistical Summary
+- Key descriptive statistics for numeric features
+- Frequency tables for top categorical features
+- Target variable distribution
+
+### 3. Data Quality Assessment
+| Issue | Affected Columns | Severity | Recommended Fix |
+|-------|------------------|----------|-----------------|
+| ... | ... | ... | ... |
+
+### 4. Feature Insights
+- Top correlated feature pairs
+- High-cardinality categoricals
+- Potential data leakage flags
+- Zero / near-zero variance features
+
+### 5. Univariate Highlights
+- Skewed distributions worth transforming
+- Outlier-prone columns (IQR method)
+
+### 6. Bivariate Hypotheses
+| # | Hypothesis | Features Involved | Suggested Chart |
+|---|-----------|-------------------|-----------------|
+| 1 | ... | ... | ... |
+
+### 7. Recommended Next Steps
+- Preprocessing actions (encoding, scaling, imputation)
+- Modelling suggestions based on data structure
+
+## Rules
+- ALWAYS call tools before making claims about the data.
+- Be precise with numbers — cite values from tool outputs.
+- When you have enough information, respond WITHOUT tool calls to finish.
+"""
+
+
+# ─────────────────────────── Nodes ───────────────────────────
+def reason(state: EDAAgentState) -> dict:
+    """Think + optionally request a tool call."""
+    task = state.get("task", "Perform a full EDA on the dataset.")
+    react_msgs = state.get("react_messages") or []
+
+    all_msgs = (
+        [SystemMessage(content=SYSTEM_PROMPT)]
+        + [HumanMessage(content=f"TASK: {task}\nFILE: {state.get('file_path', 'N/A')}")]
+        + react_msgs
+    )
+
+    response = llm_with_tools.invoke(all_msgs)
+
+    return {
+        "react_messages": react_msgs + [response],
+        "llm_calls": state.get("llm_calls", 0) + 1,
+        "react_iterations": state.get("react_iterations", 0) + 1,
+    }
+
+
+def act(state: EDAAgentState) -> dict:
+    """Execute every tool the LLM requested."""
+    last_msg = state["react_messages"][-1]
+    tool_results: list[ToolMessage] = []
+
+    for tool_call in last_msg.tool_calls:
+        tool = EDA_TOOLS_BY_NAME[tool_call["name"]]
+        args = dict(tool_call["args"])
+
+        # Inject the real file path
+        if "file_path" in args and state.get("file_path"):
+            args["file_path"] = state["file_path"]
+
+        observation = tool.invoke(args)
+
+        # Normalise to string
+        if isinstance(observation, dict):
+            obs_str = json.dumps(observation, indent=2, default=str)
+        elif hasattr(observation, "to_string"):
+            obs_str = observation.to_string()
         else:
-            return str(observation)
-    
-    def should_continue(self, state: Dict[str, Any]) -> bool:
-        """Determine if agent should continue processing"""
-        last_message = state["messages"][-1]
-        return hasattr(last_message, 'tool_calls') and len(last_message.tool_calls) > 0
+            obs_str = str(observation)
+
+        tool_results.append(
+            ToolMessage(content=obs_str, tool_call_id=tool_call["id"])
+        )
+
+    return {
+        "react_messages": (state.get("react_messages") or []) + tool_results,
+    }
+
+
+def finish(state: EDAAgentState) -> dict:
+    """Extract the final EDA report from the last AI message."""
+    react_msgs = state.get("react_messages") or []
+
+    eda_report = "EDA report could not be generated."
+    for msg in reversed(react_msgs):
+        if isinstance(msg, AIMessage) and not getattr(msg, "tool_calls", None):
+            eda_report = msg.content
+            break
+
+    # Push the report into the outer message list so the UI can read it
+    return {
+        "eda_report": eda_report,
+        "messages": [AIMessage(content=eda_report)],
+    }
+
+
+# ─────────────────────────── Router ──────────────────────────
+def should_continue(state: EDAAgentState) -> str:
+    """Decide whether to call tools or wrap up."""
+    react_msgs = state.get("react_messages") or []
+    if not react_msgs:
+        return "finish"
+
+    last_msg = react_msgs[-1]
+    iterations = state.get("react_iterations", 0)
+
+    # Safety cap
+    if iterations >= MAX_ITERATIONS:
+        return "finish"
+
+    # If the LLM wants to call tools, keep looping
+    if getattr(last_msg, "tool_calls", None):
+        return "act"
+
+    return "finish"
+
+
+# ─────────────────────────── Graph ───────────────────────────
+def build_eda_agent():
+    """Compile and return the EDA ReAct agent graph."""
+    builder = StateGraph(EDAAgentState)
+
+    builder.add_node("reason", reason)
+    builder.add_node("act", act)
+    builder.add_node("finish", finish)
+
+    builder.set_entry_point("reason")
+
+    builder.add_conditional_edges("reason", should_continue, {
+        "act": "act",
+        "finish": "finish",
+    })
+    builder.add_edge("act", "reason")   # Observe → Think again
+    builder.add_edge("finish", END)
+
+    return builder.compile()
+
+
+# Singleton for easy import
+eda_agent = build_eda_agent()
